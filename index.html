@@ -14,14 +14,16 @@
   }
   body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--beige); color: var(--text); line-height: 1.6; }
 
-  /* TICKER */
+  /* TICKER SANS INTERRUPTION */
   .ticker-bar { background: var(--blue-dark); color: var(--beige); padding: 9px 0; overflow: hidden; white-space: nowrap; position: sticky; top: 0; z-index: 101; }
-  .ticker-track { display: inline-block; animation: ticker 22s linear infinite; }
-  @keyframes ticker { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
-  .ticker-item { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; margin-right: 80px; }
-  .ticker-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; display: inline-block; }
+  .ticker-inner { display: flex; width: max-content; animation: ticker 30s linear infinite; }
+  .ticker-inner:hover { animation-play-state: paused; }
+  .ticker-block { display: flex; align-items: center; padding-right: 0; }
+  .ticker-item { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; padding: 0 40px; border-right: 1px solid rgba(255,255,255,0.15); }
+  .ticker-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; flex-shrink: 0; }
   .ticker-label { opacity: 0.6; }
   .ticker-server { font-weight: 600; }
+  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
   /* NAV */
   nav { position: sticky; top: 33px; background: rgba(245,240,232,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; z-index: 100; }
@@ -35,11 +37,6 @@
   .hero-bg { position: absolute; inset: 0; background: radial-gradient(circle at 20% 30%, rgba(58,107,158,0.08) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(58,107,158,0.06) 0%, transparent 50%); pointer-events: none; }
   .grid-deco { position: absolute; top: 60px; right: 5%; display: grid; grid-template-columns: repeat(8, 12px); gap: 4px; opacity: 0.07; pointer-events: none; }
   .grid-dot { width: 12px; height: 12px; background: var(--blue-dark); border-radius: 1px; }
-
-  /* PIXEL AVATAR */
-  .pixel-avatar { margin-bottom: 1.5rem; position: relative; display: inline-block; }
-  .pixel-grid { display: grid; gap: 3px; }
-  .pixel-cell { border-radius: 2px; }
 
   .hero-tag { display: inline-block; background: var(--blue-dark); color: var(--beige); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 2px; margin-bottom: 1.5rem; }
   .hero h1 { font-size: clamp(3rem,8vw,6rem); font-weight: 700; letter-spacing: -1px; color: var(--blue-dark); line-height: 1; margin-bottom: 1rem; }
@@ -82,15 +79,14 @@
   .status-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 500; }
   .status-dot { width: 7px; height: 7px; border-radius: 50%; }
   .status-online .status-dot { background: #4CAF50; } .status-online { color: #2e7d32; }
-  .status-offline .status-dot { background: #9e9e9e; } .status-offline { color: #757575; }
   .soon-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted); font-weight: 500; background: var(--beige-dark); padding: 6px 12px; border-radius: 20px; }
 
-  /* VISITED SLOTS */
+  /* VISITED */
   .visited-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
   .visited-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden; }
   .visited-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue-light); }
   .visited-card:hover { border-color: var(--blue-light); transform: translateY(-2px); }
-  .visited-card.slot { border-style: dashed; opacity: 0.5; }
+  .visited-card.slot { border-style: dashed; opacity: 0.45; }
   .visited-card.slot::before { background: var(--border); }
   .v-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
   .v-logo { width: 44px; height: 44px; border-radius: 8px; background: var(--beige-dark); display: flex; align-items: center; justify-content: center; font-size: 22px; overflow: hidden; flex-shrink: 0; }
@@ -98,7 +94,7 @@
   .v-name { font-weight: 600; font-size: 14px; color: var(--blue-dark); }
   .v-type { font-size: 11px; color: var(--text-muted); }
   .v-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
-  .slot-inner { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; gap: 6px; }
+  .slot-inner { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.2rem; gap: 6px; }
   .slot-plus { font-size: 28px; color: var(--border); }
   .slot-text { font-size: 12px; color: var(--text-muted); }
 
@@ -118,17 +114,17 @@
   .discord-widget-wrap iframe { width: 100%; border: none; display: block; }
 
   /* FLOAT MUSIC */
-  .float-music { position: fixed; right: 20px; bottom: 30px; z-index: 999; background: var(--blue-dark); color: var(--beige); border-radius: 50px; padding: 10px 16px; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 20px rgba(30,74,114,0.4); min-width: 200px; }
-  .fm-play { background: rgba(255,255,255,0.15); border: none; color: var(--beige); border-radius: 50%; width: 30px; height: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; transition: background 0.2s; }
+  .float-music { position: fixed; right: 20px; bottom: 30px; z-index: 999; background: var(--blue-dark); color: var(--beige); border-radius: 50px; padding: 10px 16px; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 20px rgba(30,74,114,0.4); min-width: 210px; }
+  .fm-play { background: rgba(255,255,255,0.15); border: none; color: var(--beige); border-radius: 50%; width: 32px; height: 32px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; transition: background 0.2s; }
   .fm-play:hover { background: rgba(255,255,255,0.28); }
   .fm-info { display: flex; flex-direction: column; flex: 1; }
   .fm-title { font-size: 11px; font-weight: 600; }
   .fm-sub { font-size: 10px; opacity: 0.55; }
-  .fm-vol { display: flex; align-items: center; gap: 4px; }
+  .fm-vol { display: flex; align-items: center; gap: 4px; font-size: 11px; opacity: 0.8; }
   .fm-vol input { width: 52px; accent-color: var(--beige); cursor: pointer; }
   .fm-bars { display: flex; align-items: flex-end; gap: 2px; height: 14px; flex-shrink: 0; }
   .fm-bars span { display: block; width: 3px; background: var(--beige); border-radius: 2px; opacity: 0.7; }
-  .float-music.paused .fm-bars span { animation: none !important; height: 3px !important; opacity: 0.35; }
+  .float-music.paused .fm-bars span { animation: none !important; height: 3px !important; opacity: 0.3; }
   .fm-bars span:nth-child(1) { animation: bar 0.9s ease-in-out infinite; height: 7px; }
   .fm-bars span:nth-child(2) { animation: bar 0.9s ease-in-out infinite 0.25s; height: 13px; }
   .fm-bars span:nth-child(3) { animation: bar 0.9s ease-in-out infinite 0.5s; height: 5px; }
@@ -139,20 +135,18 @@
 </head>
 <body>
 
-<!-- TICKER -->
+<!-- TICKER SANS INTERRUPTION — double le contenu pour boucle parfaite -->
 <div class="ticker-bar">
-  <div class="ticker-track">
-    <span class="ticker-item"><span class="ticker-dot"></span><span class="ticker-label">Prochain serveur :</span> <span class="ticker-server">⚔️ Erazion Network — ERAZION.FR</span></span>
-    <span class="ticker-item">🗓 Prévu ce weekend — rejoins le Discord pour plus d'infos !</span>
-    <span class="ticker-item"><span class="ticker-dot"></span><span class="ticker-label">Prochain serveur :</span> <span class="ticker-server">⚔️ Erazion Network — ERAZION.FR</span></span>
-    <span class="ticker-item">🗓 Prévu ce weekend — rejoins le Discord pour plus d'infos !</span>
+  <div class="ticker-inner" id="tickerInner">
+    <div class="ticker-block" id="tickerContent"></div>
+    <div class="ticker-block" id="tickerClone"></div>
   </div>
 </div>
 
 <!-- FLOAT MUSIC -->
 <div class="float-music paused" id="floatMusicBtn">
   <button class="fm-play" id="fmPlayBtn" onclick="toggleMusic()">▶</button>
-  <div class="fm-info"><span class="fm-title">Lofi Chill</span><span class="fm-sub">Ambiance • C418 vibes</span></div>
+  <div class="fm-info"><span class="fm-title">Lofi Chill</span><span class="fm-sub">C418 vibes • Ambiance</span></div>
   <div class="fm-vol">🔊<input type="range" min="0" max="100" value="40" oninput="setVol(this.value)"></div>
   <div class="fm-bars"><span></span><span></span><span></span></div>
 </div>
@@ -171,14 +165,11 @@
 <div class="hero">
   <div class="hero-bg"></div>
   <div class="grid-deco" id="gridDeco"></div>
-
-  <!-- AVATAR LOGO -->
   <div style="margin-bottom:1.5rem;">
     <img src="https://i.postimg.cc/rsCF8yPx/hofu-(2).png"
       style="width:110px;height:110px;border-radius:50%;border:3px solid #7B5CF0;object-fit:cover;background:#000;"
       alt="_Hofu_">
   </div>
-
   <span class="hero-tag">Minecraft &amp; Créations</span>
   <h1>_<span>Hofu</span>_</h1>
   <p class="hero-sub">Bienvenue sur mon espace — retrouvez mes serveurs Minecraft et mes réseaux.</p>
@@ -189,25 +180,16 @@
   <div class="stats-row">
     <div class="stat-card"><div class="stat-num">400</div><div class="stat-label">Followers</div></div>
     <div class="stat-card"><div class="stat-num">1</div><div class="stat-label">Serveur actif</div></div>
-    <div class="stat-card"><div class="stat-num" id="visitedCount">5</div><div class="stat-label">Serveurs visités</div></div>
+    <div class="stat-card"><div class="stat-num">5</div><div class="stat-label">Serveurs visités</div></div>
   </div>
 </div>
 
-<!-- MES SERVEURS -->
+<!-- MON SERVEUR -->
 <section id="servers">
   <p class="section-label">Minecraft</p>
-  <h2 class="section-title">Mes serveurs</h2>
+  <h2 class="section-title">Mon serveur</h2>
   <div class="divider"></div>
   <div class="servers-grid">
-    <div class="server-card">
-      <div class="server-header">
-        <div class="server-icon">⛏️</div>
-        <div><div class="server-name">Serveur Survie</div><div class="server-type">Survie • Java Edition</div></div>
-      </div>
-      <p class="server-desc">Serveur survie vanilla amélioré. Construis, explore et joue avec la communauté.</p>
-      <div class="server-ip"><span id="ip1">play.hofu.mc</span><button class="copy-btn" onclick="copyIP('ip1',this)">Copier</button></div>
-      <span class="status-badge status-online"><span class="status-dot"></span>En ligne</span>
-    </div>
     <div class="server-card soon">
       <div class="server-header">
         <div class="server-icon">🔒</div>
@@ -224,58 +206,29 @@
   <p class="section-label">Explorations</p>
   <h2 class="section-title">Serveurs visités</h2>
   <div class="divider"></div>
-  <div class="visited-grid" id="visitedGrid">
-
+  <div class="visited-grid">
     <div class="visited-card">
-      <div class="v-header">
-        <div class="v-logo"><img src="https://i.imgur.com/placeholder.png" onerror="this.parentNode.innerHTML='🌸'" alt="Elarys"></div>
-        <div><div class="v-name">Elarys</div><div class="v-type">Skyblock • Java Edition</div></div>
-      </div>
+      <div class="v-header"><div class="v-logo">🌸</div><div><div class="v-name">Elarys</div><div class="v-type">Skyblock • Java</div></div></div>
       <p class="v-desc">Serveur Skyblock français avec une communauté active.</p>
     </div>
-
     <div class="visited-card">
-      <div class="v-header">
-        <div class="v-logo"><img src="https://i.imgur.com/placeholder.png" onerror="this.parentNode.innerHTML='🐉'" alt="PixelMongo"></div>
-        <div><div class="v-name">PixelMongo</div><div class="v-type">Pixel • Java Edition</div></div>
-      </div>
+      <div class="v-header"><div class="v-logo">🐉</div><div><div class="v-name">PixelMongo</div><div class="v-type">Pixel • Java</div></div></div>
       <p class="v-desc">Serveur pixel art et créatif — un univers coloré.</p>
     </div>
-
     <div class="visited-card">
-      <div class="v-header">
-        <div class="v-logo"><img src="https://i.imgur.com/placeholder.png" onerror="this.parentNode.innerHTML='🏕️'" alt="ElderCraft"></div>
-        <div><div class="v-name">ElderCraft</div><div class="v-type">Survie • Java Edition</div></div>
-      </div>
+      <div class="v-header"><div class="v-logo">🏕️</div><div><div class="v-name">ElderCraft</div><div class="v-type">Survie • Java</div></div></div>
       <p class="v-desc">Survie immersive avec des mécaniques enrichies.</p>
     </div>
-
     <div class="visited-card">
-      <div class="v-header">
-        <div class="v-logo"><img src="https://i.imgur.com/placeholder.png" onerror="this.parentNode.innerHTML='🏙️'" alt="Fractalia"></div>
-        <div><div class="v-name">Fractalia</div><div class="v-type">Tycoon • Java Edition</div></div>
-      </div>
+      <div class="v-header"><div class="v-logo">🏙️</div><div><div class="v-name">Fractalia</div><div class="v-type">Tycoon • Java</div></div></div>
       <p class="v-desc">Gère ta ville et domine l'économie.</p>
     </div>
-
     <div class="visited-card">
-      <div class="v-header">
-        <div class="v-logo"><img src="https://i.imgur.com/placeholder.png" onerror="this.parentNode.innerHTML='⚡'" alt="Erazion"></div>
-        <div><div class="v-name">Erazion</div><div class="v-type">Network • Java Edition</div></div>
-      </div>
+      <div class="v-header"><div class="v-logo">⚡</div><div><div class="v-name">Erazion</div><div class="v-type">Network • Java</div></div></div>
       <p class="v-desc">Le Network Erazion — multiples modes de jeu.</p>
     </div>
-
-    <!-- SLOT VIDE 1 -->
-    <div class="visited-card slot">
-      <div class="slot-inner"><div class="slot-plus">+</div><div class="slot-text">Slot disponible</div></div>
-    </div>
-
-    <!-- SLOT VIDE 2 -->
-    <div class="visited-card slot">
-      <div class="slot-inner"><div class="slot-plus">+</div><div class="slot-text">Slot disponible</div></div>
-    </div>
-
+    <div class="visited-card slot"><div class="slot-inner"><div class="slot-plus">+</div><div class="slot-text">Slot disponible</div></div></div>
+    <div class="visited-card slot"><div class="slot-inner"><div class="slot-plus">+</div><div class="slot-text">Slot disponible</div></div></div>
   </div>
 </section>
 
@@ -286,7 +239,7 @@
     <h2 class="section-title">Mon serveur Discord</h2>
     <div class="divider"></div>
     <div class="discord-widget-wrap">
-      <iframe src="https://discord.com/widget?id=881461934359191602&theme=light" height="400" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+      <iframe src="https://discord.com/widget?id=1373593945082433581&theme=light" height="400" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
     </div>
   </div>
 </div>
@@ -324,50 +277,42 @@
 <footer><p>© 2026 _Hofu_ — Tous droits réservés</p></footer>
 
 <script>
-  // PIXEL DECO bg
+  // GRID DECO
   const gdeco = document.getElementById('gridDeco');
   [1,1,0,1,1,0,1,0,1,0,0,0,1,0,1,1,1,1,0,1,1,0,0,1,0,1,0,1,0,0,1,1,1,1,1,1,1,0,1,0,0,0,1,1,1,1,1,1].forEach(v => {
-    const d = document.createElement('div'); d.className = 'grid-dot'; d.style.opacity = v ? '1' : '0'; gdeco.appendChild(d);
+    const d = document.createElement('div'); d.className = 'grid-dot'; d.style.opacity = v?'1':'0'; gdeco.appendChild(d);
   });
 
-  // PIXEL AVATAR — grille de carrés style skin Minecraft
-  (function() {
-    const cols = 10, size = 10;
-    const palette = ['#1E4A72','#3A6B9E','#5A8EC0','#E8E0D0','#F5F0E8','transparent'];
-    const p = palette;
-    // Motif simplifié style tête Minecraft _Hofu_
-    const map = [
-      0,0,1,1,1,1,1,1,0,0,
-      0,1,2,2,2,2,2,2,1,0,
-      1,2,3,3,2,2,3,3,2,1,
-      1,2,3,0,2,2,0,3,2,1,
-      1,2,2,2,1,1,2,2,2,1,
-      1,2,2,3,3,3,3,2,2,1,
-      1,2,3,3,3,3,3,3,2,1,
-      0,1,2,3,2,2,3,2,1,0,
-      0,0,1,2,1,1,2,1,0,0,
-      0,0,0,1,1,1,1,0,0,0,
-    ];
-    const grid = document.getElementById('pixelAvatar');
-    grid.style.gridTemplateColumns = `repeat(${cols}, ${size}px)`;
-    grid.style.gap = '2px';
-    map.forEach(v => {
-      const c = document.createElement('div');
-      c.className = 'pixel-cell';
-      c.style.width = size+'px'; c.style.height = size+'px';
-      c.style.background = p[v] === 'transparent' ? 'transparent' : p[v];
-      c.style.opacity = p[v] === 'transparent' ? '0' : '1';
-      grid.appendChild(c);
-    });
-  })();
+  // TICKER — double contenu pour boucle parfaite sans saut
+  const items = [
+    { dot: true, label: 'Prochain serveur :', server: '⚔️ Erazion Network — ERAZION.FR' },
+    { dot: false, label: '', server: '🗓 Ce weekend — rejoins le Discord !' },
+    { dot: true, label: 'Prochain serveur :', server: '🏰 ElderCraft — PLAY.ELDERCRAFT.FR' },
+    { dot: false, label: '', server: '🎮 Suis les infos sur le Discord !' },
+    { dot: true, label: 'Prochain serveur :', server: '🌸 Elarys — PLAY.ELARYS.FR' },
+    { dot: false, label: '', server: '📣 Rejoins la communauté _Hofu_ !' },
+  ];
 
-  // COPY IP
-  function copyIP(id, btn) {
-    navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => {
-      const o = btn.textContent; btn.textContent = '✓ Copié';
-      setTimeout(() => btn.textContent = o, 1500);
+  function buildTicker(el) {
+    items.forEach(it => {
+      const span = document.createElement('span');
+      span.className = 'ticker-item';
+      span.innerHTML = it.dot
+        ? `<span class="ticker-dot"></span><span class="ticker-label">${it.label}</span> <span class="ticker-server">${it.server}</span>`
+        : `<span class="ticker-server">${it.server}</span>`;
+      el.appendChild(span);
     });
   }
+  buildTicker(document.getElementById('tickerContent'));
+  buildTicker(document.getElementById('tickerClone'));
+
+  // Ajuste la durée selon la largeur réelle
+  window.addEventListener('load', () => {
+    const w = document.getElementById('tickerContent').offsetWidth;
+    const speed = 60; // px/s
+    const dur = w / speed;
+    document.getElementById('tickerInner').style.animationDuration = dur + 's';
+  });
 
   // SMOOTH SCROLL
   document.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -377,35 +322,71 @@
     });
   });
 
-  // VISIT COUNTER
-  (function() {
-    try {
-      const K_VIEWS = 'hv2', K_VIS = 'hvisit2', K_SEEN = 'hseen2';
-      let views = parseInt(localStorage.getItem(K_VIEWS) || '0') + 1;
-      if (views > 99999) views = 1;
-      localStorage.setItem(K_VIEWS, views);
-      let visitors = parseInt(localStorage.getItem(K_VIS) || '0');
-      if (!localStorage.getItem(K_SEEN)) {
-        visitors = Math.min(visitors + 1, views);
-        localStorage.setItem(K_VIS, visitors);
-        localStorage.setItem(K_SEEN, '1');
-      }
-    } catch(e) {}
-  })();
+  // MUSIC — Web Audio API lofi
+  let actx = null, gain = null, playing = false, loop = null;
 
-  // MUSIC
-  let audioCtx=null,gainNode=null,playing=false,loopTimeout=null;
-  const melody=[[392,0,1.2],[440,1.4,1.0],[494,2.5,0.8],[523,3.4,1.5],[494,5.0,0.8],[440,6.0,1.0],[392,7.1,1.8],[349,9.0,1.2],[392,10.3,1.0],[440,11.4,0.8],[494,12.3,1.5],[523,13.8,2.0]];
-  const loopDur=16;
-  function buildAudio(){audioCtx=new(window.AudioContext||window.webkitAudioContext)();gainNode=audioCtx.createGain();gainNode.gain.value=0.08;gainNode.connect(audioCtx.destination);}
-  function playNote(f,s,d){const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,audioCtx.currentTime+s);g.gain.linearRampToValueAtTime(0.3,audioCtx.currentTime+s+0.1);g.gain.linearRampToValueAtTime(0,audioCtx.currentTime+s+d);o.connect(g);g.connect(gainNode);o.start(audioCtx.currentTime+s);o.stop(audioCtx.currentTime+s+d+0.1);}
-  function playLoop(){if(!playing)return;melody.forEach(([f,s,d])=>playNote(f,s,d));loopTimeout=setTimeout(playLoop,loopDur*1000);}
-  function toggleMusic(){
-    const wrap=document.getElementById('floatMusicBtn'),btn=document.getElementById('fmPlayBtn');
-    if(!playing){if(!audioCtx)buildAudio();if(audioCtx.state==='suspended')audioCtx.resume();playing=true;wrap.classList.remove('paused');btn.textContent='⏸';playLoop();}
-    else{playing=false;wrap.classList.add('paused');btn.textContent='▶';clearTimeout(loopTimeout);if(audioCtx)audioCtx.suspend();}
+  const NOTES = [
+    // Mélodie douce lofi
+    [261,0,0.8],[294,1,0.6],[329,1.8,0.8],[349,2.7,1.2],
+    [329,4.1,0.6],[294,4.9,0.8],[261,5.8,1.4],[220,7.4,1.0],
+    [246,8.6,0.8],[261,9.5,0.6],[294,10.2,1.0],[329,11.3,1.8],
+  ];
+  // Accords graves (pad)
+  const CHORDS = [
+    [130,0,3.8],[146,0,3.8],[174,0,3.8],
+    [110,4,3.8],[130,4,3.8],[164,4,3.8],
+    [116,8,3.8],[130,8,3.8],[155,8,3.8],
+  ];
+  const DUR = 13;
+
+  function initAudio() {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    gain = actx.createGain();
+    gain.gain.value = 0.07;
+    gain.connect(actx.destination);
   }
-  function setVol(v){if(gainNode)gainNode.gain.value=v/1000;}
+
+  function note(freq, start, dur, type='sine', vol=0.25) {
+    const o = actx.createOscillator();
+    const g = actx.createGain();
+    o.type = type; o.frequency.value = freq;
+    const t = actx.currentTime + start;
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(vol, t + 0.08);
+    g.gain.setValueAtTime(vol, t + dur - 0.1);
+    g.gain.linearRampToValueAtTime(0, t + dur);
+    o.connect(g); g.connect(gain);
+    o.start(t); o.stop(t + dur + 0.05);
+  }
+
+  function playLoop() {
+    if (!playing) return;
+    NOTES.forEach(([f,s,d]) => note(f, s, d, 'sine', 0.22));
+    CHORDS.forEach(([f,s,d]) => note(f, s, d, 'triangle', 0.06));
+    loop = setTimeout(playLoop, DUR * 1000);
+  }
+
+  function toggleMusic() {
+    const wrap = document.getElementById('floatMusicBtn');
+    const btn = document.getElementById('fmPlayBtn');
+    if (!playing) {
+      if (!actx) initAudio();
+      actx.resume().then(() => {
+        playing = true;
+        wrap.classList.remove('paused');
+        btn.textContent = '⏸';
+        playLoop();
+      });
+    } else {
+      playing = false;
+      wrap.classList.add('paused');
+      btn.textContent = '▶';
+      clearTimeout(loop);
+      actx.suspend();
+    }
+  }
+
+  function setVol(v) { if (gain) gain.gain.value = v / 1000; }
 </script>
 </body>
 </html>
