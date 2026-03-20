@@ -13,18 +13,65 @@
     --card-bg: #FDFBF7; --border: #DDD5C5;
   }
   body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--beige); color: var(--text); line-height: 1.6; }
+
+  /* NAV */
   nav { position: sticky; top: 0; background: rgba(245,240,232,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; z-index: 100; }
   .nav-logo { font-size: 16px; font-weight: 600; color: var(--blue-dark); letter-spacing: 0.5px; }
   .nav-links { display: flex; gap: 2rem; list-style: none; }
   .nav-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover { color: var(--blue); }
-  .visit-bar { background: var(--blue-dark); color: var(--beige); text-align: center; padding: 8px 2rem; font-size: 12px; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-  .visit-bar span { opacity: 0.7; }
-  .visit-count { font-weight: 600; font-size: 14px; opacity: 1 !important; }
+
+  /* MUSIC BAR */
+  .music-bar {
+    background: var(--blue-dark); color: var(--beige);
+    padding: 8px 2rem; display: flex; align-items: center; justify-content: center; gap: 14px;
+  }
+  .music-btn {
+    background: rgba(255,255,255,0.15); border: none; color: var(--beige);
+    border-radius: 50%; width: 32px; height: 32px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; font-size: 14px;
+    transition: background 0.2s; flex-shrink: 0;
+  }
+  .music-btn:hover { background: rgba(255,255,255,0.25); }
+  .music-info { display: flex; flex-direction: column; align-items: flex-start; }
+  .music-title { font-size: 12px; font-weight: 600; letter-spacing: 0.3px; }
+  .music-sub { font-size: 10px; opacity: 0.6; }
+  .music-progress { flex: 1; max-width: 200px; height: 3px; background: rgba(255,255,255,0.2); border-radius: 2px; overflow: hidden; }
+  .music-fill { height: 100%; background: var(--beige); border-radius: 2px; width: 0%; transition: width 0.5s linear; }
+  .music-vol { display: flex; align-items: center; gap: 6px; font-size: 11px; opacity: 0.7; }
+  .music-vol input { width: 60px; accent-color: var(--beige); cursor: pointer; }
+
+  /* VISIT BAR */
+  .visit-bar { background: var(--blue); color: var(--beige); text-align: center; padding: 6px 2rem; font-size: 12px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .visit-bar span { opacity: 0.8; }
+  .visit-count { font-weight: 600; font-size: 13px; opacity: 1 !important; }
+
+  /* HERO */
   .hero { min-height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 4rem 2rem; position: relative; overflow: hidden; }
   .hero-bg { position: absolute; inset: 0; background: radial-gradient(circle at 20% 30%, rgba(58,107,158,0.08) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(58,107,158,0.06) 0%, transparent 50%); pointer-events: none; }
   .grid-deco { position: absolute; top: 60px; right: 5%; display: grid; grid-template-columns: repeat(8, 12px); gap: 4px; opacity: 0.07; }
   .grid-dot { width: 12px; height: 12px; background: var(--blue-dark); border-radius: 1px; }
+
+  /* AVATAR */
+  .hero-avatar {
+    width: 90px; height: 90px; border-radius: 50%;
+    border: 3px solid var(--blue-dark);
+    background: var(--beige-dark);
+    margin-bottom: 1.25rem;
+    overflow: hidden; display: flex; align-items: center; justify-content: center;
+    font-size: 32px; color: var(--blue-dark); font-weight: 700;
+    position: relative; cursor: pointer;
+  }
+  .hero-avatar img { width: 100%; height: 100%; object-fit: cover; display: none; }
+  .avatar-overlay {
+    position: absolute; inset: 0; background: rgba(30,74,114,0.6);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.2s; border-radius: 50%;
+    font-size: 11px; color: white; font-weight: 500;
+  }
+  .hero-avatar:hover .avatar-overlay { opacity: 1; }
+  #avatarInput { display: none; }
+
   .hero-tag { display: inline-block; background: var(--blue-dark); color: var(--beige); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 2px; margin-bottom: 1.5rem; }
   .hero h1 { font-size: clamp(3rem,8vw,6rem); font-weight: 700; letter-spacing: -1px; color: var(--blue-dark); line-height: 1; margin-bottom: 1rem; }
   .hero h1 span { color: var(--blue-light); }
@@ -34,10 +81,20 @@
   .btn-primary:hover { background: var(--blue); transform: translateY(-1px); }
   .btn-secondary { background: transparent; color: var(--blue-dark); padding: 11px 28px; border-radius: 4px; border: 1.5px solid var(--blue-dark); text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.2s; }
   .btn-secondary:hover { background: var(--blue-dark); color: var(--beige); }
+
+  /* STATS */
+  .stats-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 2rem; }
+  .stat-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 20px; text-align: center; min-width: 110px; }
+  .stat-num { font-size: 22px; font-weight: 700; color: var(--blue-dark); }
+  .stat-label { font-size: 11px; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; margin-top: 2px; }
+
+  /* SECTIONS */
   section { padding: 5rem 2rem; max-width: 900px; margin: 0 auto; }
   .section-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); font-weight: 600; margin-bottom: 0.5rem; }
   .section-title { font-size: 28px; font-weight: 600; color: var(--blue-dark); margin-bottom: 2.5rem; }
   .divider { width: 40px; height: 2px; background: var(--blue); border-radius: 2px; margin-bottom: 2.5rem; }
+
+  /* SERVER CARDS */
   .servers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
   .server-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden; }
   .server-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue); }
@@ -53,10 +110,10 @@
   .copy-btn:hover { background: var(--border); }
   .status-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 500; }
   .status-dot { width: 7px; height: 7px; border-radius: 50%; }
-  .status-online .status-dot { background: #4CAF50; }
-  .status-online { color: #2e7d32; }
-  .status-offline .status-dot { background: #9e9e9e; }
-  .status-offline { color: #757575; }
+  .status-online .status-dot { background: #4CAF50; } .status-online { color: #2e7d32; }
+  .status-offline .status-dot { background: #9e9e9e; } .status-offline { color: #757575; }
+
+  /* SOCIALS */
   .socials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
   .social-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem 1.5rem; text-decoration: none; display: flex; align-items: center; gap: 14px; transition: all 0.2s; color: inherit; }
   .social-card:hover { border-color: var(--blue-light); background: var(--beige-dark); transform: translateY(-1px); }
@@ -64,20 +121,37 @@
   .social-platform { font-size: 13px; font-weight: 600; color: var(--blue-dark); }
   .social-handle { font-size: 12px; color: var(--text-muted); }
   .social-arrow { margin-left: auto; color: var(--text-muted); font-size: 16px; }
+
+  /* DISCORD */
   .discord-section { background: var(--beige-dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 5rem 2rem; }
   .discord-inner { max-width: 900px; margin: 0 auto; }
   .discord-widget-wrap { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
   .discord-widget-wrap iframe { width: 100%; border: none; display: block; }
+
   footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-muted); font-size: 13px; background: var(--beige-dark); }
 </style>
 </head>
 <body>
 
+<!-- MUSIC BAR -->
+<div class="music-bar">
+  <button class="music-btn" id="playBtn" onclick="toggleMusic()">▶</button>
+  <div class="music-info">
+    <span class="music-title">Minecraft — Sweden</span>
+    <span class="music-sub">C418 • Ambiance</span>
+  </div>
+  <div class="music-progress"><div class="music-fill" id="musicFill"></div></div>
+  <div class="music-vol">
+    🔊 <input type="range" min="0" max="100" value="40" oninput="setVol(this.value)">
+  </div>
+</div>
+
+<!-- VISIT BAR -->
 <div class="visit-bar">
-  <span>👁 Visiteurs uniques :</span>
+  <span>👁 Visiteurs :</span>
   <span class="visit-count" id="visitCount">…</span>
   <span>•</span>
-  <span>Vues totales :</span>
+  <span>Vues :</span>
   <span class="visit-count" id="viewCount">…</span>
 </div>
 
@@ -91,15 +165,40 @@
   </ul>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
   <div class="hero-bg"></div>
   <div class="grid-deco" id="gridDeco"></div>
+
+  <div class="hero-avatar" onclick="document.getElementById('avatarInput').click()">
+    <span id="avatarInitials">H</span>
+    <img id="avatarImg" alt="avatar">
+    <div class="avatar-overlay">Changer</div>
+  </div>
+  <input type="file" id="avatarInput" accept="image/*" onchange="loadAvatar(event)">
+
   <span class="hero-tag">Minecraft &amp; Créations</span>
   <h1>_<span>Hofu</span>_</h1>
   <p class="hero-sub">Bienvenue sur mon espace — retrouvez mes serveurs Minecraft et mes réseaux.</p>
   <div class="hero-btns">
     <a href="#servers" class="btn-primary">Voir les serveurs</a>
     <a href="#socials" class="btn-secondary">Mes réseaux</a>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num">400</div>
+      <div class="stat-label">Followers</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Serveurs</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">5</div>
+      <div class="stat-label">Réseaux visités</div>
+    </div>
   </div>
 </div>
 
@@ -117,13 +216,13 @@
     </div>
     <div class="server-card">
       <div class="server-header"><div class="server-icon">🏗️</div><div><div class="server-name">Serveur Créatif</div><div class="server-type">Créatif • Java Edition</div></div></div>
-      <p class="server-desc">Espace dédié aux constructions et projets artistiques. Laisse libre cours à ta créativité.</p>
+      <p class="server-desc">Espace dédié aux constructions et projets artistiques.</p>
       <div class="server-ip"><span id="ip2">creative.hofu.mc</span><button class="copy-btn" onclick="copyIP('ip2',this)">Copier</button></div>
       <span class="status-badge status-online"><span class="status-dot"></span>En ligne</span>
     </div>
     <div class="server-card">
       <div class="server-header"><div class="server-icon">⚔️</div><div><div class="server-name">Mini-Jeux</div><div class="server-type">PvP &amp; Events • Java Edition</div></div></div>
-      <p class="server-desc">Events, tournois PvP et mini-jeux exclusifs. Rejoins les combats et grimpe au classement.</p>
+      <p class="server-desc">Events, tournois PvP et mini-jeux exclusifs.</p>
       <div class="server-ip"><span id="ip3">pvp.hofu.mc</span><button class="copy-btn" onclick="copyIP('ip3',this)">Copier</button></div>
       <span class="status-badge status-offline"><span class="status-dot"></span>Bientôt</span>
     </div>
@@ -138,27 +237,27 @@
   <div class="servers-grid">
     <div class="server-card">
       <div class="server-header"><div class="server-icon">🌸</div><div><div class="server-name">Elarys</div><div class="server-type">Skyblock • Java Edition</div></div></div>
-      <p class="server-desc">Serveur Skyblock français avec une communauté active. Construis ton île et progresse.</p>
+      <p class="server-desc">Serveur Skyblock français avec une communauté active.</p>
       <div class="server-ip"><span id="vis1">PLAY.ELARYS.FR</span><button class="copy-btn" onclick="copyIP('vis1',this)">Copier</button></div>
     </div>
     <div class="server-card">
       <div class="server-header"><div class="server-icon">🐉</div><div><div class="server-name">PixelMongo</div><div class="server-type">Pixel • Java Edition</div></div></div>
-      <p class="server-desc">Serveur pixel art et créatif — un univers coloré et original à explorer.</p>
+      <p class="server-desc">Serveur pixel art et créatif — un univers coloré.</p>
       <div class="server-ip"><span id="vis2">PLAY.ELARYS.FR</span><button class="copy-btn" onclick="copyIP('vis2',this)">Copier</button></div>
     </div>
     <div class="server-card">
       <div class="server-header"><div class="server-icon">🏕️</div><div><div class="server-name">ElderCraft</div><div class="server-type">Survie • Java Edition</div></div></div>
-      <p class="server-desc">Survie immersive avec des mécaniques enrichies. Pour les vrais amateurs de vanilla+.</p>
+      <p class="server-desc">Survie immersive avec des mécaniques enrichies.</p>
       <div class="server-ip"><span id="vis3">PLAY.ELDERCRAFT.FR</span><button class="copy-btn" onclick="copyIP('vis3',this)">Copier</button></div>
     </div>
     <div class="server-card">
       <div class="server-header"><div class="server-icon">🏙️</div><div><div class="server-name">Fractalia</div><div class="server-type">Tycoon • Java Edition</div></div></div>
-      <p class="server-desc">Gère ta ville, développe ton empire et domine l'économie dans ce serveur Tycoon.</p>
+      <p class="server-desc">Gère ta ville et domine l'économie.</p>
       <div class="server-ip"><span id="vis4">PLAY.FRACTALIA.FR</span><button class="copy-btn" onclick="copyIP('vis4',this)">Copier</button></div>
     </div>
     <div class="server-card">
       <div class="server-header"><div class="server-icon">⚡</div><div><div class="server-name">Erazion</div><div class="server-type">Network • Java Edition</div></div></div>
-      <p class="server-desc">Le Network Erazion — multiples modes de jeu regroupés sur une seule plateforme.</p>
+      <p class="server-desc">Le Network Erazion — multiples modes de jeu.</p>
       <div class="server-ip"><span id="vis5">ERAZION.FR</span><button class="copy-btn" onclick="copyIP('vis5',this)">Copier</button></div>
     </div>
   </div>
@@ -211,6 +310,7 @@
 </footer>
 
 <script>
+  // PIXEL DECO
   const grid = document.getElementById('gridDeco');
   [1,1,0,1,1,0,1,0,1,0,0,0,1,0,1,1,1,1,0,1,1,0,0,1,0,1,0,1,0,0,1,1,1,1,1,1,1,0,1,0,0,0,1,1,1,1,1,1].forEach(v => {
     const d = document.createElement('div');
@@ -218,6 +318,7 @@
     grid.appendChild(d);
   });
 
+  // COPY IP
   function copyIP(id, btn) {
     navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => {
       const o = btn.textContent; btn.textContent = '✓ Copié';
@@ -225,6 +326,7 @@
     });
   }
 
+  // SMOOTH SCROLL
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const t = document.querySelector(a.getAttribute('href'));
@@ -232,16 +334,103 @@
     });
   });
 
+  // AVATAR
+  function loadAvatar(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const img = document.getElementById('avatarImg');
+      img.src = ev.target.result;
+      img.style.display = 'block';
+      document.getElementById('avatarInitials').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // VISIT COUNTER — corrigé, valeurs raisonnables
   (function() {
-    const views = parseInt(localStorage.getItem('hofu_views') || '1482') + 1;
-    localStorage.setItem('hofu_views', views);
-    let visitors = parseInt(localStorage.getItem('hofu_visitors') || '634');
-    if (!localStorage.getItem('hofu_has_visited')) {
-      visitors++; localStorage.setItem('hofu_visitors', visitors); localStorage.setItem('hofu_has_visited', '1');
+    try {
+      const K_VIEWS = 'hv2', K_VIS = 'hvisit2', K_SEEN = 'hseen2';
+      let views = parseInt(localStorage.getItem(K_VIEWS) || '0') + 1;
+      if (views > 99999) views = 1;
+      localStorage.setItem(K_VIEWS, views);
+      let visitors = parseInt(localStorage.getItem(K_VIS) || '0');
+      if (!localStorage.getItem(K_SEEN)) {
+        visitors = Math.min(visitors + 1, views);
+        localStorage.setItem(K_VIS, visitors);
+        localStorage.setItem(K_SEEN, '1');
+      }
+      document.getElementById('visitCount').textContent = visitors.toLocaleString('fr-FR');
+      document.getElementById('viewCount').textContent = views.toLocaleString('fr-FR');
+    } catch(e) {
+      document.getElementById('visitCount').textContent = '–';
+      document.getElementById('viewCount').textContent = '–';
     }
-    document.getElementById('visitCount').textContent = visitors.toLocaleString('fr-FR');
-    document.getElementById('viewCount').textContent = views.toLocaleString('fr-FR');
   })();
+
+  // MUSIC PLAYER — utilise l'API Web Audio pour générer une ambiance douce
+  let audioCtx = null, gainNode = null, playing = false, fillInterval = null, fillPct = 0;
+
+  function buildAudio() {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    gainNode = audioCtx.createGain();
+    gainNode.gain.value = 0.08;
+    gainNode.connect(audioCtx.destination);
+  }
+
+  function playNote(freq, start, dur) {
+    const osc = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    g.gain.setValueAtTime(0, audioCtx.currentTime + start);
+    g.gain.linearRampToValueAtTime(0.3, audioCtx.currentTime + start + 0.1);
+    g.gain.linearRampToValueAtTime(0, audioCtx.currentTime + start + dur);
+    osc.connect(g); g.connect(gainNode);
+    osc.start(audioCtx.currentTime + start);
+    osc.stop(audioCtx.currentTime + start + dur + 0.1);
+  }
+
+  // Notes inspirées de "Sweden" de C418
+  const melody = [
+    [392,0,1.2],[440,1.4,1.0],[494,2.5,0.8],[523,3.4,1.5],
+    [494,5.0,0.8],[440,6.0,1.0],[392,7.1,1.8],[349,9.0,1.2],
+    [392,10.3,1.0],[440,11.4,0.8],[494,12.3,1.5],[523,13.8,2.0]
+  ];
+  const loopDur = 16;
+  let loopTimeout = null;
+
+  function playLoop() {
+    if (!playing) return;
+    melody.forEach(([f, s, d]) => playNote(f, s, d));
+    loopTimeout = setTimeout(playLoop, loopDur * 1000);
+  }
+
+  function toggleMusic() {
+    const btn = document.getElementById('playBtn');
+    if (!playing) {
+      if (!audioCtx) buildAudio();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      playing = true;
+      btn.textContent = '⏸';
+      playLoop();
+      fillInterval = setInterval(() => {
+        fillPct = (fillPct + 100 / (loopDur * 10)) % 100;
+        document.getElementById('musicFill').style.width = fillPct + '%';
+      }, 100);
+    } else {
+      playing = false;
+      btn.textContent = '▶';
+      clearTimeout(loopTimeout);
+      clearInterval(fillInterval);
+      if (audioCtx) audioCtx.suspend();
+    }
+  }
+
+  function setVol(v) {
+    if (gainNode) gainNode.gain.value = v / 1000;
+  }
 </script>
 </body>
 </html>
